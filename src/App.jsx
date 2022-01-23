@@ -3,11 +3,13 @@ import './app.css';
 import Input from './Components/Input';
 import Text from './Components/Text';
 
+let count = 0;
 function App() {
+	count = count + 1;
 	const [isShow, setIsShow] = useState(false);
 	const [todos, setTodos] = useState([
-		{ id: Math.random(), val: 'thom' },
-		{ id: Math.random(), val: 'thuan' },
+		{ id: Math.random(), val: 'Hồ Thị Thơm' },
+		{ id: Math.random(), val: 'Trần Gia Thuận' },
 	]);
 	const [newTodos, setNewTodos] = useState();
 
@@ -27,6 +29,7 @@ function App() {
 
 	return (
 		<div className='root-container'>
+			<h4 style={{ marginBottom: 10 }}>Số lần Re-render: {count}</h4>
 			<button className='btn' onClick={handleShowClick}>
 				{!isShow ? 'Thêm hoặc chỉnh sửa' : 'Huỷ'}
 			</button>
@@ -34,8 +37,8 @@ function App() {
 				{!isShow ? (
 					<div className='wrap'>
 						{/* Chế độ hiển thị */}
-						{todos.map(({ id, val }) => (
-							<Text key={id}>{val}</Text>
+						{todos.map(({ id, val }, index) => (
+							<Text key={id}>{index + 1 + '. ' + val}</Text>
 						))}
 					</div>
 				) : (
