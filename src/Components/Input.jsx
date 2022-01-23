@@ -4,7 +4,7 @@ const Input = ({ id, val, onChange, todos }) => {
 		if (index !== -1)
 			onChange(
 				todos.map((x, i) => {
-					if (index === i) x.val = e.target.value.trim();
+					if (index === i) x.val = e.target.value;
 					return x;
 				})
 			);
