@@ -1,13 +1,17 @@
 const Input = ({ id, val, onChange, todos }) => {
 	const handleChange = (e) => {
 		const index = todos.findIndex((x) => x.id === id);
-		if (index !== -1)
+		if (index !== -1) {
+			const temps = [...todos];
+			temps.splice(index, 1, { id, val: e.target.value });
 			onChange(
-				todos.map((x, i) => {
-					if (index === i) x.val = e.target.value;
-					return x;
-				})
+				temps
+				// todos.map((x, i) => {
+				// 	if (index === i) x.val = e.target.value;
+				// 	return x;
+				// })
 			);
+		}
 	};
 
 	return (
