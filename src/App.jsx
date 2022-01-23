@@ -27,6 +27,12 @@ function App() {
 		setNewTodos([...newTodos, { id: Math.random(), val: '' }]);
 	};
 
+	const handleChange = (id, index, val) => {
+		const temps = [...newTodos];
+		temps.splice(index, 1, { id, val });
+		setNewTodos(temps);
+	};
+
 	return (
 		<div className='root-container'>
 			<h4 style={{ marginBottom: 10 }}>Số lần Re-render: {count}</h4>
@@ -51,13 +57,11 @@ function App() {
 							+
 						</button>
 						<div className='wrap'>
-							{newTodos.map((item, index) => (
+							{newTodos.map(({ id, val }, index) => (
 								<Input
-									key={item.id}
-									index={index}
-									{...item}
-									onChange={setNewTodos}
-									todos={newTodos}
+									key={id}
+									val={val}
+									onChange={(newVal) => handleChange(id, index, newVal)}
 								/>
 							))}
 						</div>
