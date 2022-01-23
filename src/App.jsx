@@ -48,9 +48,10 @@ function App() {
 							+
 						</button>
 						<div className='wrap'>
-							{newTodos.map((item) => (
+							{newTodos.map((item, index) => (
 								<Input
 									key={item.id}
+									index={index}
 									{...item}
 									onChange={setNewTodos}
 									todos={newTodos}
