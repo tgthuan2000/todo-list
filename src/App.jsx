@@ -30,7 +30,7 @@ function App() {
 					<>
 						{/* Ché độ chỉnh sửa */}
 						<div className='header'>
-							<Input placeHodler='Câu hỏi' focus />
+							<Input placeHodler='Câu hỏi' />
 							<button className='btn'>+</button>
 						</div>
 
