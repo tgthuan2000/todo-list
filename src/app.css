@@ -3,7 +3,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
 .root-container {
 	height: 100vh;
 	display: flex;
@@ -16,13 +15,18 @@
 	padding: 2rem;
 	border: 1px solid;
 	border-radius: 10px;
-	width: 350px;
+	width: 90%;
+	min-width: 350px;
+	max-width: 550px;
 }
 .wrap {
-	max-height: 250px;
-	overflow-y: scroll;
+	max-height: 300px;
+	overflow: auto;
 	margin-bottom: 10px;
 	padding: 5px 5px 0;
+}
+.wrap .input {
+	margin-bottom: 10px;
 }
 .btn {
 	padding: 10px 20px;
@@ -30,8 +34,55 @@
 	font-weight: 500;
 	cursor: pointer;
 }
+.btn + .btn {
+	margin-left: 1rem;
+}
 .input {
 	padding: 5px;
-	margin-bottom: 10px;
 	width: 100%;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid gray;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.input:focus {
+	border-color: black;
+}
+.title {
+	text-align: center;
+	margin-bottom: 1rem;
+	font-size: 1.5rem;
+}
+.header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+	padding: 0 5px;
+}
+.header > button {
+	margin-left: 10px;
+}
+.full-width {
+	width: 100%;
+}
+.txt-wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	user-select: none;
+	line-height: 1.2;
+}
+.txt-wrap > p {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.1rem;
+}
+.txt-wrap > span {
+	margin-left: 0.8rem;
+	cursor: pointer;
+}
+.txt-wrap > span:hover {
+	opacity: 0.5;
 }

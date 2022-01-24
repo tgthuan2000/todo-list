@@ -1,74 +1,45 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import './app.css';
 import Input from './Components/Input';
 import Text from './Components/Text';
+import { data } from './assets/data';
 
-let count = 0;
 function App() {
-	count = count + 1;
 	const [isShow, setIsShow] = useState(false);
-	const [todos, setTodos] = useState([
-		{ id: Math.random(), val: 'Hồ Thị Thơm' },
-		{ id: Math.random(), val: 'Trần Gia Thuận' },
-	]);
-	const [newTodos, setNewTodos] = useState(null);
-	const inputRefs = useRef(null);
-
-	const handleSaveClick = () => {
-		setTodos(inputRefs.current.filter((i) => i.val.trim() !== ''));
-		setIsShow(!isShow);
-	};
-
-	const handleShowClick = () => {
-		setIsShow(!isShow);
-		setNewTodos(!isShow ? todos : null);
-		inputRefs.current = !isShow ? [...todos] : null;
-	};
-
-	const handleAddClick = () => {
-		inputRefs.current = [...inputRefs.current, { id: Math.random(), val: '' }];
-		setNewTodos(inputRefs.current);
-	};
-
-	const handleChange = (id, index, val) => {
-		const temps = [...inputRefs.current];
-		temps.splice(index, 1, { id, val });
-		inputRefs.current = temps;
-	};
 
 	return (
 		<div className='root-container'>
-			<h4 style={{ marginBottom: 10 }}>Số lần Re-render: {count}</h4>
-			<button className='btn' onClick={handleShowClick}>
-				{!isShow ? 'Thêm hoặc chỉnh sửa' : 'Huỷ'}
-			</button>
+			<div>
+				<button className='btn' onClick={() => setIsShow(!isShow)}>
+					{!isShow ? 'Thêm câu hỏi' : 'Quay lại'}
+				</button>
+				{!isShow && <button className='btn'>Kiểm tra</button>}
+			</div>
 			<div className='wraper'>
 				{!isShow ? (
-					<div className='wrap'>
+					<>
 						{/* Chế độ hiển thị */}
-						{todos.map(({ id, val }, index) => (
-							<Text key={id}>{index + 1 + '. ' + val}</Text>
-						))}
-					</div>
+						<h3 className='title'>Danh sách câu hỏi</h3>
+						<div className='wrap'>
+							{data.map(({ id, cauHoi }, index) => (
+								<Text key={id}>{index + 1 + '. ' + cauHoi}</Text>
+							))}
+						</div>
+					</>
 				) : (
 					<>
 						{/* Ché độ chỉnh sửa */}
-						<button
-							className='btn'
-							style={{ marginBottom: 5 }}
-							onClick={handleAddClick}>
-							+
-						</button>
-						<div className='wrap'>
-							{newTodos.map(({ id, val }, index) => (
-								<Input
-									key={id}
-									val={val}
-									onChange={(newVal) => handleChange(id, index, newVal)}
-								/>
-							))}
+						<div className='header'>
+							<Input placeHodler='Câu hỏi' focus />
+							<button className='btn'>+</button>
 						</div>
-						<button className='btn' style={{ width: '100%' }} onClick={handleSaveClick}>
+
+						<div className='wrap'>
+							<Input placeHodler='Đáp án đúng' />
+							<Input placeHodler='Đáp án sai' />
+						</div>
+
+						<button className='btn full-width' onClick={() => setIsShow(!isShow)}>
 							Lưu
 						</button>
 					</>
