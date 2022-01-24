@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './app.css';
 import Input from './Components/Input';
 import Text from './Components/Text';
-import { data } from './assets/data';
+import { sua, them, xoa } from './features/cauHoi';
 
 function App() {
 	const [isAdd, setIsAdd] = useState(false);
 	const [editMode, setEditMode] = useState(null);
-	const [Q, setQ] = useState(data);
+	const Q = useSelector((state) => state.cauHoi);
+	const dispatch = useDispatch();
 
 	const [dapAnSai, setDapAnSai] = useState([]);
 	const cauHoiRef = useRef();
@@ -31,6 +34,11 @@ function App() {
 
 		dapAnSaiRef.current = data.cauSai;
 		setDapAnSai(dapAnSaiRef.current);
+	};
+
+	// xoá
+	const handleXoa = (index) => {
+		dispatch(xoa(index));
 	};
 
 	useEffect(() => {
@@ -57,15 +65,7 @@ function App() {
 			cauSai: dapAnSaiRef.current.filter((txt) => txt.trim() !== ''),
 		};
 
-		setQ(
-			isEdit
-				? () => {
-						const temps = [...Q];
-						temps.splice(editMode.index, 1, data);
-						return temps;
-				  }
-				: [...Q, data]
-		);
+		dispatch(isEdit ? sua({ data, index: editMode.index }) : them(data));
 
 		setIsAdd(!isAdd);
 		setEditMode(null);
@@ -80,7 +80,11 @@ function App() {
 				<button className='btn' onClick={handleAdd}>
 					{!isAdd ? 'Thêm câu hỏi' : 'Quay lại'}
 				</button>
-				{!isAdd && <button className='btn'>Kiểm tra</button>}
+				{!isAdd && (
+					<Link to={'test'} className='btn'>
+						Kiểm tra
+					</Link>
+				)}
 			</div>
 			<div className='wraper'>
 				{!isAdd ? (
@@ -89,8 +93,11 @@ function App() {
 						<h3 className='title'>Danh sách câu hỏi</h3>
 						<div className='wrap'>
 							{Q.map((item, index) => (
-								<Text key={item.id} onClick={() => handleSua(item, index)}>
-									{index + 1 + '. ' + item.cauHoi}
+								<Text
+									key={item.id}
+									onEditClick={() => handleSua(item, index)}
+									onDelClick={() => handleXoa(index)}>
+									{`${index + 1}. ${item.cauHoi}`}
 								</Text>
 							))}
 						</div>
@@ -119,7 +126,7 @@ function App() {
 								<Input
 									key={index}
 									val={val}
-									placeHodler='Đáp án sai'
+									placeHodler={`Đáp án sai ${index + 1}`}
 									onChange={(val) => handleChangeText(index, val)}
 								/>
 							))}

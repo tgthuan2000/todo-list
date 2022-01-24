@@ -1,8 +1,12 @@
-const Text = ({ children, onClick }) => {
+const Text = ({ children, onEditClick, onDelClick }) => {
 	return (
 		<div className='txt-wrap'>
 			<p>{children}</p>
-			<span onClick={onClick}>Sửa</span>
+			<div>
+				<span onClick={onEditClick}>Sửa</span>
+				{' | '}
+				<span onClick={onDelClick}>Xoá</span>
+			</div>
 		</div>
 	);
 };

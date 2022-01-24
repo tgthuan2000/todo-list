@@ -33,6 +33,11 @@
 	font-size: 1.1rem;
 	font-weight: 500;
 	cursor: pointer;
+	text-decoration: none;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 1px solid gray;
+	border-radius: 5px;
 }
 .btn + .btn {
 	margin-left: 1rem;
@@ -79,10 +84,10 @@
 	overflow: hidden;
 	font-size: 1.1rem;
 }
-.txt-wrap > span {
+.txt-wrap > div {
 	margin-left: 0.8rem;
-	cursor: pointer;
 }
-.txt-wrap > span:hover {
+.txt-wrap span:hover {
+	cursor: pointer;
 	opacity: 0.5;
 }
