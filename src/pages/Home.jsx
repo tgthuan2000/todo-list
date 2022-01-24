@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './app.css';
-import Input from './Components/Input';
-import Text from './Components/Text';
-import { sua, them, xoa } from './features/cauHoi';
+import Input from '../Components/Input';
+import Text from '../Components/Text';
+import { sua, them, xoa } from '../features/cauHoi';
 
-function App() {
+function Home() {
 	const [isAdd, setIsAdd] = useState(false);
 	const [editMode, setEditMode] = useState(null);
 	const Q = useSelector((state) => state.cauHoi);
@@ -17,7 +16,7 @@ function App() {
 	const dapAnDungRef = useRef();
 	const dapAnSaiRef = useRef([]);
 
-	// Thêm
+	// Thêm + quay lại
 	const handleAdd = () => {
 		setIsAdd(!isAdd);
 		cauHoiRef.current = null;
@@ -81,7 +80,7 @@ function App() {
 					{!isAdd ? 'Thêm câu hỏi' : 'Quay lại'}
 				</button>
 				{!isAdd && (
-					<Link to={'test'} className='btn'>
+					<Link to='exam' className='btn'>
 						Kiểm tra
 					</Link>
 				)}
@@ -142,4 +141,4 @@ function App() {
 	);
 }
 
-export default App;
+export default Home;

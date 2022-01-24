@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cauHoiSlice from './features/cauHoi';
+import cauHoi from './features/cauHoi';
 
 export const store = configureStore({
-	reducer: {
-		cauHoi: cauHoiSlice,
-	},
+	reducer: { cauHoi },
 });
