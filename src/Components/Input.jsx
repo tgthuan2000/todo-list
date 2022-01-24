@@ -3,7 +3,7 @@ const Input = ({ val, onChange }) => {
 		<input
 			placeholder='Enter text'
 			autoFocus
-			value={val}
+			defaultValue={val}
 			onChange={(e) => onChange(e.target.value)}
 			className='input'
 		/>

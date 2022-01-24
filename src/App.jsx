@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './app.css';
 import Input from './Components/Input';
 import Text from './Components/Text';
@@ -11,16 +11,18 @@ function App() {
 		{ id: Math.random(), val: 'Hồ Thị Thơm' },
 		{ id: Math.random(), val: 'Trần Gia Thuận' },
 	]);
-	const [newTodos, setNewTodos] = useState();
+	const [newTodos, setNewTodos] = useState(null);
+	const inputRefs = useRef(null);
 
 	const handleSaveClick = () => {
-		setTodos(newTodos.filter((i) => i.val.trim() !== ''));
+		setTodos(inputRefs.current.filter((i) => i.val.trim() !== ''));
 		setIsShow(!isShow);
 	};
 
 	const handleShowClick = () => {
 		setIsShow(!isShow);
-		setNewTodos(todos);
+		setNewTodos(!isShow ? todos : null);
+		inputRefs.current = !isShow ? [...todos] : null;
 	};
 
 	const handleAddClick = () => {
@@ -28,9 +30,9 @@ function App() {
 	};
 
 	const handleChange = (id, index, val) => {
-		const temps = [...newTodos];
+		const temps = [...inputRefs.current];
 		temps.splice(index, 1, { id, val });
-		setNewTodos(temps);
+		inputRefs.current = temps;
 	};
 
 	return (
