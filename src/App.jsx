@@ -26,7 +26,8 @@ function App() {
 	};
 
 	const handleAddClick = () => {
-		setNewTodos([...newTodos, { id: Math.random(), val: '' }]);
+		inputRefs.current = [...inputRefs.current, { id: Math.random(), val: '' }];
+		setNewTodos(inputRefs.current);
 	};
 
 	const handleChange = (id, index, val) => {
