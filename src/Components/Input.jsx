@@ -1,8 +1,8 @@
-const Input = ({ placeHodler, val, onChange, focus }) => {
+const Input = ({ placeHodler, val, onChange }) => {
 	return (
 		<input
 			placeholder={placeHodler}
-			autoFocus={focus}
+			autoFocus
 			defaultValue={val}
 			onChange={(e) => onChange(e.target.value)}
 			className='input'
