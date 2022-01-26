@@ -17,9 +17,7 @@ const Exam = () => {
 						<Input placeHodler='Thời gian mỗi câu (s)' required type='number' />
 					</div>
 				</div>
-				<Link
-					to={`/exam/${(Math.random() * 100000).toFixed(0)}`}
-					className='btn full-width mt-1'>
+				<Link to='/room' className='btn full-width mt-1'>
 					Bắt đầu
 				</Link>
 			</div>

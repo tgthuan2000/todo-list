@@ -1,13 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Room = () => {
-	const params = useParams();
-
 	return (
 		<div>
 			<div className='header-room'>
 				<div>
-					<p>Mã phòng: {params.id}</p>
+					<p>Mã phòng: 0</p>
 					<p>Tổng số câu: 0</p>
 					<p>Thời gian trả lời mỗi câu: 0 giây</p>
 				</div>
