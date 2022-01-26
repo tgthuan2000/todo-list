@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,11 +12,22 @@ const Exam = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		numRef.current?.focus();
+	}, []);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const id = (Math.random() * 100000).toFixed(0);
-		dispatch(random({ id, num: numRef.current.value, time: timeRef.current.value, data: Q }));
-		navigate(id);
+		dispatch(
+			random({
+				id,
+				num: Number.parseInt(numRef.current.value),
+				time: Number.parseInt(timeRef.current.value),
+				data: Q,
+			})
+		);
+		navigate('/room');
 	};
 
 	return (
