@@ -13,7 +13,7 @@ function App() {
 				<button className='btn' onClick={() => setIsShow(!isShow)}>
 					{!isShow ? 'Thêm câu hỏi' : 'Quay lại'}
 				</button>
-				{!isShow && <button className='btn'>Kiểm tra</button>}
+				{!isShow && <button className='btn ml-1'>Kiểm tra</button>}
 			</div>
 			<div className='wraper'>
 				{!isShow ? (

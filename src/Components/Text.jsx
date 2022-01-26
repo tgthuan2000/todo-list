@@ -2,7 +2,11 @@ const Text = ({ children }) => {
 	return (
 		<div className='txt-wrap'>
 			<p>{children}</p>
-			<span>Sửa</span>
+			<div>
+				<span>Sửa</span>
+				{' | '}
+				<span>Xoá</span>
+			</div>
 		</div>
 	);
 };
