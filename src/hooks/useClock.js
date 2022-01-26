@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useClock = (time) => {
 	const [isPause, setIsPause] = useState(false);
 	const [clock, setClock] = useState(time);
-	const ref = useRef();
 
 	const set = (newTime) => setClock(newTime);
 	const reset = () => {
@@ -14,11 +13,12 @@ const useClock = (time) => {
 	const play = () => setIsPause(false);
 
 	useEffect(() => {
+		let timeout = null;
 		if (!isPause && clock > 0) {
-			ref.current = setTimeout(() => setClock(clock - 1), 1000);
+			timeout = setTimeout(() => setClock(clock - 1), 1000);
 		}
 
-		return () => clearTimeout(ref.current);
+		return () => timeout && clearTimeout(timeout);
 	}, [clock, isPause]);
 
 	return { clock, set, reset, pause, play, isOver: clock === 0 };

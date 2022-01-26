@@ -1,25 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useClock from '../hooks/useClock';
 import { next } from '../features/kiemTra';
 
+const WAITING_TIME = 5;
+
 const Room = () => {
+	const [dapAn, setDapAn] = useState(null);
+	const [isBlock, setIsBlock] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { id, time, num, data, index } = useSelector((state) => state.kiemTra);
-	const { clock, isOver, reset } = useClock(time);
+	const { clock, isOver, reset, set } = useClock(time);
 
 	const handleCheck = (i) => {
-		if (!isOver) {
+		if (!isOver && !isBlock) {
+			if (dapAn === null && clock > 5) {
+				set(WAITING_TIME);
+			}
+			setDapAn(i);
 		}
-		if (index + 1 !== num) dispatch(next());
-		reset();
 	};
 
 	useEffect(() => {
 		id === null && navigate('/exam');
 	}, []);
+
+	useEffect(() => {
+		let timeout = null;
+		if (isOver && !isBlock) {
+			timeout = setTimeout(() => {
+				setIsBlock(true);
+				if (index + 1 !== num) {
+					set(WAITING_TIME);
+					setTimeout(() => {
+						setDapAn(null);
+						setIsBlock(false);
+						dispatch(next());
+						reset();
+					}, (WAITING_TIME + 1) * 1000);
+				} else {
+					alert('Kết thúc! Rời trang web sau 2 giây!');
+					setTimeout(() => {
+						navigate('/exam');
+					}, 2000);
+				}
+			}, 1000);
+		}
+		return () => timeout && clearTimeout(timeout);
+	}, [isOver, isBlock]);
 
 	return (
 		<div>
@@ -40,14 +70,20 @@ const Room = () => {
 							<h4 className='fw-500'>{`Câu số ${index + 1}: ${
 								data[index]?.cauHoi
 							}`}</h4>
-							<b className='time'>{clock}</b>
+							<b className={`time${!isBlock && clock <= 5 ? ' danger' : ''}`}>
+								{clock}
+							</b>
 						</div>
 						<div className='grid-2'>
-							{data[index]?.dapAn.map((x, index) => (
+							{data[index]?.dapAn.map((x, i) => (
 								<button
-									onClick={() => handleCheck(index)}
-									className='btn btn-small'
-									key={index}>
+									key={i}
+									onClick={() => handleCheck(i)}
+									className={`btn btn-small${isBlock ? ' btn-block' : ''}${
+										dapAn === i ? ' btn-active' : ''
+									}${
+										isBlock && data[index].cauDung === i ? ' btn-success' : ''
+									}`}>
 									{x}
 								</button>
 							))}

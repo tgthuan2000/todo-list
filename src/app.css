@@ -71,6 +71,9 @@ body {
 	font-weight: 600;
 	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+.danger {
+	color: crimson;
+}
 .header-room {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	padding: 5px;
@@ -144,6 +147,15 @@ body {
 .btn-small {
 	font-size: 0.85rem;
 	padding: 8px 16px;
+}
+.btn-block {
+	pointer-events: none;
+}
+.btn-active {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.btn-success {
+	background-color: green;
 }
 .input {
 	padding: 5px;

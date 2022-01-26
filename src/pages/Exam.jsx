@@ -18,12 +18,26 @@ const Exam = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const num = Number.parseInt(numRef.current.value);
+		const time = Number.parseInt(timeRef.current.value);
+		if (num > Q.length) {
+			alert(`Só lượng câu hỏi vượt quá số lượng hiện có. Hiện có ${Q.length} câu hỏi!`);
+			numRef.current.focus();
+			return;
+		}
+
+		if (time < 5) {
+			alert('Tối thiểu 5 giây');
+			timeRef.current.focus();
+			return;
+		}
+
 		const id = (Math.random() * 100000).toFixed(0);
 		dispatch(
 			random({
 				id,
-				num: Number.parseInt(numRef.current.value),
-				time: Number.parseInt(timeRef.current.value),
+				num,
+				time,
 				data: Q,
 			})
 		);
