@@ -79,15 +79,16 @@ function Home() {
 				<button className='btn' onClick={handleAdd}>
 					{!isAdd ? 'Thêm câu hỏi' : 'Quay lại'}
 				</button>
-				{!isAdd && (
-					<Link to='exam' className='btn'>
+				{Q.length > 0 && !isAdd && (
+					<Link to='exam' className='btn ml-1'>
 						Kiểm tra
 					</Link>
 				)}
 			</div>
-			<div className='wraper'>
-				{!isAdd ? (
-					<>
+
+			{!isAdd ? (
+				Q.length > 0 && (
+					<div className='wraper'>
 						{/* Chế độ hiển thị */}
 						<h3 className='title'>Danh sách câu hỏi</h3>
 						<div className='wrap'>
@@ -100,43 +101,43 @@ function Home() {
 								</Text>
 							))}
 						</div>
-					</>
-				) : (
-					<>
-						{/* Ché độ chỉnh sửa */}
-						<div className='header'>
-							<Input
-								placeHodler='Câu hỏi'
-								val={editMode?.data.cauHoi}
-								inputRef={cauHoiRef}
-							/>
-							<button className='btn' onClick={handleThemDapAn}>
-								+
-							</button>
-						</div>
-
-						<div className='wrap'>
-							<Input
-								placeHodler='Đáp án đúng'
-								val={editMode?.data.cauDung}
-								inputRef={dapAnDungRef}
-							/>
-							{dapAnSai.map((val, index) => (
-								<Input
-									key={index}
-									val={val}
-									placeHodler={`Đáp án sai ${index + 1}`}
-									onChange={(val) => handleChangeText(index, val)}
-								/>
-							))}
-						</div>
-
-						<button className='btn full-width' onClick={() => handleSave(!!editMode)}>
-							Lưu
+					</div>
+				)
+			) : (
+				<div className='wraper'>
+					{/* Ché độ chỉnh sửa */}
+					<div className='header'>
+						<Input
+							placeHodler='Câu hỏi'
+							val={editMode?.data.cauHoi}
+							inputRef={cauHoiRef}
+						/>
+						<button className='btn btn-small fs-big' onClick={handleThemDapAn}>
+							+
 						</button>
-					</>
-				)}
-			</div>
+					</div>
+
+					<div className='wrap'>
+						<Input
+							placeHodler='Đáp án đúng'
+							val={editMode?.data.cauDung}
+							inputRef={dapAnDungRef}
+						/>
+						{dapAnSai.map((val, index) => (
+							<Input
+								key={index}
+								val={val}
+								placeHodler={`Đáp án sai ${index + 1}`}
+								onChange={(val) => handleChangeText(index, val)}
+							/>
+						))}
+					</div>
+
+					<button className='btn full-width' onClick={() => handleSave(!!editMode)}>
+						Lưu
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

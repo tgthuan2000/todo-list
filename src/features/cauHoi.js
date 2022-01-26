@@ -1,9 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { data } from '../assets/data';
+
+const initialState = [
+	{
+		id: Math.random(),
+		cauHoi: 'Hôm nay là thứ mấy?',
+		cauDung: 'Thứ high',
+		cauSai: ['Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu'],
+	},
+];
 
 export const cauHoi = createSlice({
 	name: 'CauHoi',
-	initialState: data,
+	initialState,
 	reducers: {
 		them: (state, { payload }) => {
 			return [...state, payload];
