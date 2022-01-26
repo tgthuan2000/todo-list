@@ -37,6 +37,13 @@ function App() {
 		isAdd && cauHoiRef.current?.focus();
 	}, [isAdd]);
 
+	// xoá
+	const handleXoa = (index) => {
+		const temps = [...Q];
+		temps.splice(index, 1);
+		setQ(temps);
+	};
+
 	// sự kiện
 	const handleChangeText = (index, val) => {
 		const temps = [...dapAnSaiRef.current];
@@ -80,57 +87,60 @@ function App() {
 				<button className='btn' onClick={handleAdd}>
 					{!isAdd ? 'Thêm câu hỏi' : 'Quay lại'}
 				</button>
-				{!isAdd && <button className='btn'>Kiểm tra</button>}
+				{!isAdd && Q.length > 0 && <button className='btn ml-1'>Kiểm tra</button>}
 			</div>
-			<div className='wraper'>
-				{!isAdd ? (
-					<>
+			{!isAdd ? (
+				Q.length > 0 && (
+					<div className='wraper'>
 						{/* Chế độ hiển thị */}
 						<h3 className='title'>Danh sách câu hỏi</h3>
 						<div className='wrap'>
 							{Q.map((item, index) => (
-								<Text key={item.id} onClick={() => handleSua(item, index)}>
+								<Text
+									key={item.id}
+									onEditClick={() => handleSua(item, index)}
+									onDelClick={() => handleXoa(index)}>
 									{index + 1 + '. ' + item.cauHoi}
 								</Text>
 							))}
 						</div>
-					</>
-				) : (
-					<>
-						{/* Ché độ chỉnh sửa */}
-						<div className='header'>
-							<Input
-								placeHodler='Câu hỏi'
-								val={editMode?.data.cauHoi}
-								inputRef={cauHoiRef}
-							/>
-							<button className='btn' onClick={handleThemDapAn}>
-								+
-							</button>
-						</div>
-
-						<div className='wrap'>
-							<Input
-								placeHodler='Đáp án đúng'
-								val={editMode?.data.cauDung}
-								inputRef={dapAnDungRef}
-							/>
-							{dapAnSai.map((val, index) => (
-								<Input
-									key={index}
-									val={val}
-									placeHodler='Đáp án sai'
-									onChange={(val) => handleChangeText(index, val)}
-								/>
-							))}
-						</div>
-
-						<button className='btn full-width' onClick={() => handleSave(!!editMode)}>
-							Lưu
+					</div>
+				)
+			) : (
+				<div className='wraper'>
+					{/* Ché độ chỉnh sửa */}
+					<div className='header'>
+						<Input
+							placeHodler='Câu hỏi'
+							val={editMode?.data.cauHoi}
+							inputRef={cauHoiRef}
+						/>
+						<button className='btn' onClick={handleThemDapAn}>
+							+
 						</button>
-					</>
-				)}
-			</div>
+					</div>
+
+					<div className='wrap'>
+						<Input
+							placeHodler='Đáp án đúng'
+							val={editMode?.data.cauDung}
+							inputRef={dapAnDungRef}
+						/>
+						{dapAnSai.map((val, index) => (
+							<Input
+								key={index}
+								val={val}
+								placeHodler='Đáp án sai'
+								onChange={(val) => handleChangeText(index, val)}
+							/>
+						))}
+					</div>
+
+					<button className='btn full-width' onClick={() => handleSave(!!editMode)}>
+						Lưu
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }
