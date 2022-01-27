@@ -151,6 +151,15 @@ body {
 	font-size: 0.85rem;
 	padding: 8px 16px;
 }
+.btn-block {
+	pointer-events: none;
+}
+.btn-active {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.btn-success {
+	background-color: green;
+}
 .input {
 	padding: 5px;
 	width: 100%;
