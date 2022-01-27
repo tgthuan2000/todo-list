@@ -65,6 +65,7 @@ body {
 }
 .txt-wrap > div {
 	margin-left: 0.8rem;
+	white-space: nowrap;
 }
 .txt-wrap span:hover {
 	cursor: pointer;
