@@ -75,6 +75,9 @@ body {
 	font-weight: 600;
 	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+.danger {
+	color: crimson;
+}
 .header-room {
 	padding: 5px;
 	display: flex;
