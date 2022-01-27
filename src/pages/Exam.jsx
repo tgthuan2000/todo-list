@@ -32,6 +32,9 @@ const Exam = () => {
 			return;
 		}
 
+		localStorage.setItem('data-num', JSON.stringify(num));
+		localStorage.setItem('data-time', JSON.stringify(time));
+
 		const id = (Math.random() * 100000).toFixed(0);
 		dispatch(
 			random({
@@ -46,9 +49,15 @@ const Exam = () => {
 
 	return (
 		<div className='root-container'>
-			<Link to='/' className='btn'>
-				Quay lại
-			</Link>
+			<div>
+				<Link to='/' className='btn'>
+					Quay lại
+				</Link>
+				<Link to='/history' className='btn ml-1'>
+					Xem lịch sử
+				</Link>
+			</div>
+
 			<div className='wraper'>
 				<h3 className='title'>Thiết lập</h3>
 				<form onSubmit={handleSubmit}>
@@ -59,6 +68,7 @@ const Exam = () => {
 								inputRef={numRef}
 								required
 								type='number'
+								val={JSON.parse(localStorage.getItem('data-num'))}
 							/>
 						</div>
 						<div className='col-6'>
@@ -67,6 +77,7 @@ const Exam = () => {
 								inputRef={timeRef}
 								required
 								type='number'
+								val={JSON.parse(localStorage.getItem('data-time'))}
 							/>
 						</div>
 					</div>

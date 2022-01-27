@@ -10,6 +10,7 @@ const initialState = {
 			cauHoi: '',
 			cauDung: 0,
 			dapAn: [],
+			cauChon: null,
 		},
 	],
 };
@@ -28,10 +29,13 @@ export const kiemTra = createSlice({
 		next: (state) => {
 			state.index += 1;
 		},
+		setAnswer: (state, { payload: { index, dapAn } }) => {
+			state.data[index].cauChon = dapAn;
+		},
 	},
 });
 
-export const { random, next } = kiemTra.actions;
+export const { random, next, setAnswer } = kiemTra.actions;
 
 export default kiemTra.reducer;
 
@@ -45,7 +49,7 @@ const randomData = (d = [], num) => {
 		);
 		const dapAn = [...cauSai, cauDung].sort(() => Math.random() - 0.5);
 		const vitriDung = dapAn.findIndex((i) => i === cauDung);
-		result.push({ cauHoi, cauDung: vitriDung, dapAn });
+		result.push({ cauHoi, cauDung: vitriDung, dapAn, cauChon: null });
 	});
 	return result;
 };

@@ -2,22 +2,23 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useClock from '../hooks/useClock';
-import { next } from '../features/kiemTra';
+import { next, setAnswer } from '../features/kiemTra';
 
 const WAITING_TIME = 5;
 
 const Room = () => {
+	const [correct, setCorrect] = useState(0);
 	const [dapAn, setDapAn] = useState(null);
 	const [isBlock, setIsBlock] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { id, time, num, data, index } = useSelector((state) => state.kiemTra);
-	const { clock, isOver, reset, set } = useClock(time);
+	const { clock, isOver, reset, setClock } = useClock(time);
 
 	const handleCheck = (i) => {
 		if (!isOver && !isBlock) {
 			if (dapAn === null && clock > 5) {
-				set(WAITING_TIME);
+				setClock(WAITING_TIME);
 			}
 			setDapAn(i);
 		}
@@ -32,8 +33,11 @@ const Room = () => {
 		if (isOver && !isBlock) {
 			timeout = setTimeout(() => {
 				setIsBlock(true);
+				dispatch(setAnswer({ index, dapAn }));
+				data[index].cauDung === dapAn && setCorrect(correct + 1);
+
 				if (index + 1 !== num) {
-					set(WAITING_TIME);
+					setClock(WAITING_TIME);
 					setTimeout(() => {
 						setDapAn(null);
 						setIsBlock(false);
@@ -41,6 +45,19 @@ const Room = () => {
 						reset();
 					}, (WAITING_TIME + 1) * 1000);
 				} else {
+					let localData = JSON.parse(localStorage.getItem('data-history')) || [];
+					localData = [
+						...localData,
+						{
+							date: new Date(),
+							id,
+							time,
+							num,
+							data,
+							correct,
+						},
+					];
+					localStorage.setItem('data-history', JSON.stringify(localData));
 					alert('Kết thúc! Rời trang web sau 2 giây!');
 					setTimeout(() => {
 						navigate('/exam');
@@ -58,6 +75,9 @@ const Room = () => {
 					<p>Mã phòng: {id}</p>
 					<p>Tổng số câu: {num}</p>
 					<p>Thời gian trả lời mỗi câu: {time} giây</p>
+					<p>
+						Số câu đúng: {correct}/{num}
+					</p>
 				</div>
 				<Link className='btn btn-small' to='/exam'>
 					Thoát
@@ -70,7 +90,7 @@ const Room = () => {
 							<h4 className='fw-500'>{`Câu số ${index + 1}: ${
 								data[index]?.cauHoi
 							}`}</h4>
-							<b className={`time${!isBlock && clock <= 5 ? ' danger' : ''}`}>
+							<b className={`time ml-1${!isBlock && clock <= 5 ? ' danger' : ''}`}>
 								{clock}
 							</b>
 						</div>

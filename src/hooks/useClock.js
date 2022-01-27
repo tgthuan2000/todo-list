@@ -4,7 +4,6 @@ const useClock = (time) => {
 	const [isPause, setIsPause] = useState(false);
 	const [clock, setClock] = useState(time);
 
-	const set = (newTime) => setClock(newTime);
 	const reset = () => {
 		setClock(time);
 		setIsPause(false);
@@ -21,7 +20,7 @@ const useClock = (time) => {
 		return () => timeout && clearTimeout(timeout);
 	}, [clock, isPause]);
 
-	return { clock, set, reset, pause, play, isOver: clock === 0 };
+	return { clock, setClock, reset, pause, play, isOver: clock === 0 };
 };
 
 export default useClock;
