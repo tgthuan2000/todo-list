@@ -17,7 +17,7 @@ const Room = () => {
 				<div className='wraper'>
 					<div className='dflex-bc mb-3-2'>
 						<h4 className='fw-500'>Câu số 1: Nội dung câu hỏi</h4>
-						<b className='time'>0</b>
+						<b className='time ml-1'>0</b>
 					</div>
 					<div className='grid-2'>
 						{Array.from(new Array(4)).map((x, index) => (
