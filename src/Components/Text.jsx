@@ -3,7 +3,7 @@ const Text = ({ children, onEditClick, onDelClick }) => {
 		<div className='txt-wrap'>
 			<p>{children}</p>
 			<div>
-				<span onClick={onEditClick}>Sửa</span> asdasd
+				<span onClick={onEditClick}>Sửa</span>
 				{' | '}
 				<span onClick={onDelClick}>Xoá</span>
 			</div>
