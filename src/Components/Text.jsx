@@ -3,12 +3,12 @@ const Text = ({ children, onEditClick, onDelClick }) => {
 		<div className='txt-wrap'>
 			<p>{children}</p>
 			<div>
-				<span onClick={onEditClick}>Sửa</span>
+				<span onClick={onEditClick}>Sửa</span> asdasd
 				{' | '}
 				<span onClick={onDelClick}>Xoá</span>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Text;
+export default Text
