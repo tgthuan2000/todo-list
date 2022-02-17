@@ -1,41 +1,47 @@
-import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import Input from '../Components/Input';
-import { random } from '../features/kiemTra';
+import { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import Input from '../Components/Input'
+import { LOCALSTORAGE_NUM, LOCALSTORAGE_TIME } from '../Constants'
+import { random } from '../features/kiemTra'
 
 const Exam = () => {
-	const numRef = useRef(null);
-	const timeRef = useRef(null);
-	const Q = useSelector((state) => state.cauHoi);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const numRef = useRef(null)
+	const timeRef = useRef(null)
+	const Q = useSelector((state) => state.cauHoi)
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		numRef.current?.focus();
-	}, []);
+		numRef.current?.focus()
+	}, [])
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
-		const num = Number.parseInt(numRef.current.value);
-		const time = Number.parseInt(timeRef.current.value);
-		if (num > Q.length) {
-			alert(`Só lượng câu hỏi vượt quá số lượng hiện có. Hiện có ${Q.length} câu hỏi!`);
-			numRef.current.focus();
-			return;
+		e.preventDefault()
+		const num = Number.parseInt(numRef.current.value)
+		if (num < 1) {
+			alert('Số câu không hợp lệ!')
+			numRef.current.focus()
+			return
 		}
+		if (num > Q.length) {
+			alert(`Só lượng câu hỏi vượt quá số lượng hiện có. Hiện có ${Q.length} câu hỏi!`)
+			numRef.current.focus()
+			return
+		}
+		const time = Number.parseInt(timeRef.current.value)
 
 		if (time < 5) {
-			alert('Tối thiểu 5 giây');
-			timeRef.current.focus();
-			return;
+			alert('Tối thiểu 5 giây')
+			timeRef.current.focus()
+			return
 		}
 
-		localStorage.setItem('data-num', JSON.stringify(num));
-		localStorage.setItem('data-time', JSON.stringify(time));
+		localStorage.setItem(LOCALSTORAGE_NUM, JSON.stringify(num))
+		localStorage.setItem(LOCALSTORAGE_TIME, JSON.stringify(time))
 
-		const id = (Math.random() * 100000).toFixed(0);
+		const id = (Math.random() * 100000).toFixed(0)
 		dispatch(
 			random({
 				id,
@@ -43,9 +49,9 @@ const Exam = () => {
 				time,
 				data: Q,
 			})
-		);
-		navigate('/room');
-	};
+		)
+		navigate('/room')
+	}
 
 	return (
 		<div className='root-container'>
@@ -87,7 +93,7 @@ const Exam = () => {
 				</form>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Exam;
+export default Exam

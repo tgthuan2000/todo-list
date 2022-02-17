@@ -5,7 +5,7 @@ const Text = ({ children, onEditClick, onDelClick }) => {
 			<div>
 				<span onClick={onEditClick}>Sửa</span>
 				{' | '}
-				<span onClick={onDelClick}>Xoá</span>
+				<span onClick={onDelClick}>Xóa</span>
 			</div>
 		</div>
 	)
