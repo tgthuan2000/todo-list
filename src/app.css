@@ -8,6 +8,10 @@ body {
 	margin: auto;
 	font-family: 'Pangolin', cursive;
 }
+button,
+a {
+	outline: none;
+}
 /* -------------------------OTHERS------------------------- */
 .root-container {
 	min-height: 100vh;
